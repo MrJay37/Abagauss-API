@@ -4,6 +4,7 @@ require('dotenv/config')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors');
+const sendEmail = require('./utility/emailer')
 
 //Routes
 const authRoutes = require('./routes/auth')
@@ -21,12 +22,12 @@ app.use('/auth', authRoutes)
 app.use('/app', appRoutes)
 
 
+
 //Database
 mongoose.connect(process.env.DB_URL, { 
     useNewUrlParser: true,
     useUnifiedTopology: true,
     }).then(() => console.log('DB Connected')).catch((err) => console.log(err))
-
 
 //Start listening
 app.listen(3700);

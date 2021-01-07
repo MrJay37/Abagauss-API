@@ -4,23 +4,23 @@ const jwt = require('jsonwebtoken')
 const Auth = require('../models/auth')
 const {signupValidator, signinValidator} = require('../utility/validators')
 
-
 const router = express.Router()
 
 //SIGN UP END-POINT
 router.post('/signup', async (req, res) => {
+    console.log(req.body)
     try{
-        signupValidator(req.body)
+        console.log(signupValidator(req.body))
     }
     catch (error) {
         return res.status(400).json({message: 'Invalid email or password'})
     }
-
+ 
     const exists = await Auth.findOne({email: req.body.email})
     
     if (exists) return res.status(400).json({message: 'User already exists'})
 
-    const salt = await bcrypt.genSalt(process.env.SECRET_SALT)
+    const salt = await bcrypt.genSalt(10)
     const hashedPassword = await bcrypt.hash(req.body.password, salt)
 
     const cred = new Auth({
@@ -32,7 +32,7 @@ router.post('/signup', async (req, res) => {
     
     try{
         const response = await cred.save()
-        res.json(response)
+        res.json({message: 'User registered. Sign in to continue.'})
     } catch(error) {
         res.json({message: error})
     }
@@ -54,7 +54,7 @@ router.post('/signin', async (req, res) => {
 
     const jwtoken = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET)
     res.header('auth-token', jwtoken)
-    res.json({ message: 'Logged In', credentials: { name: user.name, _id: user._id } } )
+    res.json({ message: 'Logged In', token: jwtoken, credentials: { name: user.name, id: user._id } } )
     
 })
 
