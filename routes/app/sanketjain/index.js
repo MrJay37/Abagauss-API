@@ -1,7 +1,8 @@
 const express = require('express');
-const Auth = require('../models/auth')
+const Auth = require('../../models/auth')
+const verify = require('../../utility/jwtVerify')
+
 const router = express.Router()
-const verify = require('../utility/jwtVerify')
 
 router.get('/', verify, async(req, res) => {
     const data = await Auth.find()

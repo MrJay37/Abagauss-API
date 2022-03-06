@@ -4,24 +4,18 @@ require('dotenv/config')
 const bodyParser = require('body-parser')
 const cors = require('cors');
 
-//Routes
-const authRoutes = require('./routes/auth')
-const appRoutes = require('./routes/app')
-
 //Initialize
 const app = express();
+
+// Routes
+const Routes = require('./routes')
 
 //Middleware 
 app.use(bodyParser.json())
 app.use(cors())
 
-//Routes
-app.use('/auth', authRoutes)
-app.use('/app', appRoutes)
-
-app.get('/', (req, res) => {
-    res.send('Hello from Abagauss')
-})
+// Routes
+app.use('/', Routes)
 
 
 //Start listening
