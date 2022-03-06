@@ -8,9 +8,9 @@ const router = express.Router()
 
 //SIGN UP END-POINT
 router.post('/signup', async (req, res) => {
-    console.log(req.body)
+    console.log('Sign up requested for ' + req.body.email)
     try{
-        console.log(signupValidator(req.body))
+        signupValidator(req.body)
     }
     catch (error) {
         return res.status(400).json({message: 'Invalid email or password'})
@@ -54,8 +54,17 @@ router.post('/signin', async (req, res) => {
 
     const jwtoken = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET)
     res.header('auth-token', jwtoken)
-    res.json({ message: 'Logged In', token: jwtoken, credentials: { name: user.name, id: user._id } } )
-    
+    res.json(
+        { 
+            message: 'Logged In', 
+            token: jwtoken, 
+            credentials: { 
+                name: user.name, 
+                id: user._id, 
+                email: user.email 
+            } 
+        } 
+    )
 })
 
 router.delete('/delete', async (req, res) => {

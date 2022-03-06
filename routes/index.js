@@ -8,7 +8,7 @@ const appRoutes = require('./app')
 app = express.Router()
 
 //Use routes
-app.use('/auth', authRoutes)
 app.use('/', appRoutes)
+app.use('/auth', authRoutes)
 
 module.exports = app

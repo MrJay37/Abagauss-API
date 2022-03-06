@@ -1,12 +1,17 @@
+// Imports
 const express = require('express');
-const Auth = require('../../models/auth')
-const verify = require('../../utility/jwtVerify')
 
+// Route modules
+const EducationRoutes = require('./education')
+
+// Initialize router
 const router = express.Router()
 
-router.get('/', verify, async(req, res) => {
-    const data = await Auth.find()
-    return res.json(data.map(user => ({name: user.name})))
+// Use routes
+router.use('/education', EducationRoutes)
+
+router.get('/', async(req, res) => {
+    res.send('Let\'s see what Sanket Jain has')
 })
 
 module.exports = router
