@@ -10,8 +10,5 @@ const router = express.Router()
 // Use routes
 router.use('/education', EducationRoutes)
 
-router.get('/', async(req, res) => {
-    res.send('Let\'s see what Sanket Jain has')
-})
-
+// Export router
 module.exports = router

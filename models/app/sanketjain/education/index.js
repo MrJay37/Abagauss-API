@@ -1,17 +1,38 @@
 const mongoose = require('mongoose')
 
-const SignupSchema = mongoose.Schema({
-    name: {
+const EducationSchema = mongoose.Schema({
+    start: {
+        type: Date
+    },
+    end: {
+        type: Date
+    },
+    graduated: {
+        type: Boolean
+    },
+    school: {
         type: String
     },
-    email: {
-        type: String,
-        required: true
+    location: {
+        city: {
+            type: String
+        }, 
+        state: {
+            type: String
+        }, 
+        country: {
+            type: String
+        }
     },
-    password: {
-        type: String,
-        required: true
+    education_level: {
+        type: String
+    },
+    degree: {
+        type: String
+    },
+    program: {
+        type: String
     }
 })
 
-module.exports = mongoose.model('Education', SignupSchema)
+module.exports = mongoose.model('Education', EducationSchema)
