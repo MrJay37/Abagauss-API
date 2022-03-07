@@ -10,8 +10,8 @@ const MeRoutes = require('./me')
 const SanketJainRoutes = require('./sanketjain')
 
 // Use routes
-router.use('/me', MeRoutes)
-router.use('/sanketjain', SanketJainRoutes)
+router.use('/me', verify, MeRoutes)
+router.use('/sanketjain', verify, SanketJainRoutes)
 
 router.get('/', verify, async(req, res) => {
     res.send('Hello from Abagauss')
