@@ -159,7 +159,6 @@ router.post('/signup', async (req, res) => {
 
 //SIGN IN END-POINT
 router.post('/signin', async (req, res) => {
-    console.log(req.body)
     // Sign user in
     const signInRes = await signIn(req.body.email, req.body.password)
     // Return response
